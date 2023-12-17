@@ -2,19 +2,19 @@ import { useEffect, useRef } from 'react';
 import useMap from './use-map.ts';
 import { Icon, layerGroup, Marker } from 'leaflet';
 import 'leaflet/dist/leaflet.css';
-import { Location, OfferFull, OfferPreview } from '../../types.ts';
+import { Location, OfferFull, OfferPreview } from '@/types';
 import styles from './map.module.css';
 
 const defaultCustomIcon = new Icon({
   iconUrl: 'img/pin.svg',
   iconSize: [27, 39],
-  iconAnchor: [13.5, 39]
+  iconAnchor: [13.5, 39],
 });
 
 const currentCustomIcon = new Icon({
   iconUrl: 'img/pin-active.svg',
   iconSize: [27, 39],
-  iconAnchor: [13.5, 39]
+  iconAnchor: [13.5, 39],
 });
 
 type MapProps = {
@@ -26,13 +26,7 @@ type MapProps = {
 };
 
 function Map(props: MapProps): JSX.Element {
-  const {
-    centerCoordinates,
-    offers,
-    selectedOfferId,
-    scrollWheelZoom,
-    currentOffer,
-  } = props;
+  const { centerCoordinates, offers, selectedOfferId, scrollWheelZoom, currentOffer } = props;
 
   const mapRef = useRef(null);
   const map = useMap(mapRef, centerCoordinates, scrollWheelZoom);
@@ -47,11 +41,7 @@ function Map(props: MapProps): JSX.Element {
           lng: currentOffer.location.longitude,
         });
 
-        marker
-          .setIcon(
-            currentCustomIcon
-          )
-          .addTo(markerLayer);
+        marker.setIcon(currentCustomIcon).addTo(markerLayer);
       }
 
       offers.forEach((offer) => {
@@ -64,7 +54,7 @@ function Map(props: MapProps): JSX.Element {
           .setIcon(
             selectedOfferId !== undefined && offer.id === selectedOfferId
               ? currentCustomIcon
-              : defaultCustomIcon
+              : defaultCustomIcon,
           )
           .addTo(markerLayer);
       });
@@ -81,10 +71,7 @@ function Map(props: MapProps): JSX.Element {
     }
   }, [centerCoordinates, map]);
 
-
-  return (
-    <div className={styles.map} ref={mapRef}></div>
-  );
+  return <div className={styles.map} ref={mapRef}></div>;
 }
 
 export default Map;

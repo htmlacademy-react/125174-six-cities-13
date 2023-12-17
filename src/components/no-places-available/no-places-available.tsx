@@ -1,6 +1,5 @@
 import { memo } from 'react';
-import { useAppSelector } from '../../store/hooks.ts';
-import { getSelectedCity } from '../../store/slices/app-process/selectors.ts';
+import { getSelectedCity, useAppSelector } from '@/store';
 
 function NoPlacesAvailable() {
   const cityName = useAppSelector(getSelectedCity);

@@ -1,9 +1,8 @@
 import Map from '../map/map.tsx';
 import cn from 'classnames';
-import { OfferPreview } from '../../types.ts';
+import { OfferPreview } from '@/types';
 import { useCallback, useState } from 'react';
-import NoPlacesAvailable from '../no-places-available/no-places-available.tsx';
-import AvailablePlaces from '../available-places/available-places.tsx';
+import PlacesContainer from '@/components/places-container/places-container';
 
 interface CitiesProps {
   offers: OfferPreview[];
@@ -19,16 +18,16 @@ function Cities({ offers }: CitiesProps) {
 
   return (
     <div className="cities">
-      <div className={cn('cities__places-container container', {'cities__places-container--empty': noPlacesAvailable})}>
-        {noPlacesAvailable ? (
-          <NoPlacesAvailable />
-        ) : (
-          <AvailablePlaces
-            offers={offers}
-            handleCardMouseEnter={handleCardMouseEnter}
-            handleCardMouseLeave={handleCardMouseLeave}
-          />
-        )}
+      <div
+        className={cn('cities__places-container container', {
+          'cities__places-container--empty': noPlacesAvailable,
+        })}
+      >
+        <PlacesContainer
+          offers={offers}
+          handleCardMouseEnter={handleCardMouseEnter}
+          handleCardMouseLeave={handleCardMouseLeave}
+        />
         <div className="cities__right-section">
           {!noPlacesAvailable && (
             <section className="cities__map map">

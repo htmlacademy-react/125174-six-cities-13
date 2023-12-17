@@ -1,29 +1,28 @@
-import { calculateRatingPercentage, convertCapitalizeFirstLetter, getPluralSuffix } from '../../utils';
-import { OfferFull } from '../../types.ts';
+import { calculateRatingPercentage, convertCapitalizeFirstLetter, getPluralSuffix } from '@/utils';
+import { OfferFull } from '@/types';
 import FavoriteToggleButton from '../favorite-toggle-button/favorite-toggle-button.tsx';
 
 type OfferDescriptionProps = {
   offer: OfferFull;
-}
+};
 
 function OfferDescription({ offer }: OfferDescriptionProps) {
-  const {
-    isPremium,
-    isFavorite,
-    rating,
-    title,
-    price,
-    goods,
-    type,
-    bedrooms,
-    maxAdults,
-    id,
-  } = offer;
+  const { isPremium, isFavorite, rating, title, price, goods, type, bedrooms, maxAdults, id } =
+    offer;
 
   const offerFeatures = [
-    { label: convertCapitalizeFirstLetter(type), className: 'offer__feature offer__feature--entire' },
-    { label: `${bedrooms} Bedroom${getPluralSuffix(bedrooms)}`, className: 'offer__feature offer__feature--bedrooms' },
-    { label: `Max ${maxAdults} adult${getPluralSuffix(maxAdults)}`, className: 'offer__feature offer__feature--adults' }
+    {
+      label: convertCapitalizeFirstLetter(type),
+      className: 'offer__feature offer__feature--entire',
+    },
+    {
+      label: `${bedrooms} Bedroom${getPluralSuffix(bedrooms)}`,
+      className: 'offer__feature offer__feature--bedrooms',
+    },
+    {
+      label: `Max ${maxAdults} adult${getPluralSuffix(maxAdults)}`,
+      className: 'offer__feature offer__feature--adults',
+    },
   ];
 
   const ratingPercentage = calculateRatingPercentage(rating);
@@ -56,8 +55,11 @@ function OfferDescription({ offer }: OfferDescriptionProps) {
         <span className="offer__rating-value rating__value">{rating}</span>
       </div>
       <ul className="offer__features">
-        {offerFeatures.map(({ label, className }) =>
-          <li key={className} className={className}>{label}</li>)}
+        {offerFeatures.map(({ label, className }) => (
+          <li key={className} className={className}>
+            {label}
+          </li>
+        ))}
       </ul>
       <div className="offer__price">
         <b className="offer__price-value">€{price}</b>
@@ -66,8 +68,11 @@ function OfferDescription({ offer }: OfferDescriptionProps) {
       <div className="offer__inside">
         <h2 className="offer__inside-title">What&apos;s inside</h2>
         <ul className="offer__inside-list">
-          {goods.map((good) =>
-            <li key={good} className="offer__inside-item">{good}</li>)}
+          {goods.map((good) => (
+            <li key={good} className="offer__inside-item">
+              {good}
+            </li>
+          ))}
         </ul>
       </div>
     </>

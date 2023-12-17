@@ -6,7 +6,9 @@ function NotFoundPage(): JSX.Element {
     <div className={styles.container}>
       <div className={styles.textContainer}>
         <h1>404 Not Found</h1>
-        <Link to={'/'} className={styles.link}>return to main page</Link>
+        <Link to={'/'} className={styles.link}>
+          return to main page
+        </Link>
       </div>
     </div>
   );

@@ -1,17 +1,22 @@
 import { Fragment, useEffect, useState } from 'react';
-import { getPluralSuffix } from '../../utils.ts';
-import { useAppDispatch, useAppSelector } from '../../store/hooks.ts';
-import { postReviewAction } from '../../store/api-actions.ts';
-import { getIsReviewsStatusSubmitting, getReviewsHasError } from '../../store/slices/app-data/selectors.ts';
-import { setReviewsErrorStatus } from '../../store/slices/app-data/app-data.ts';
-import { Status } from '../../const.ts';
+import { getPluralSuffix } from '@/utils';
+import {
+  getIsReviewsStatusSubmitting,
+  getReviewsHasError,
+  setReviewsErrorStatus,
+  useAppDispatch,
+  useAppSelector,
+} from '@/store';
+
+import { Status } from '@/const';
+import { postReviewAction } from '@/store/slices/reviews-data/api-actions';
 
 const ratingTitlesToValues: Record<string, number> = {
-  'terribly': 1,
-  'badly': 2,
+  terribly: 1,
+  badly: 2,
   'not bad': 3,
-  'good': 4,
-  'perfect': 5,
+  good: 4,
+  perfect: 5,
 };
 
 const MIN_LENGTH_COMMENT = 50;
@@ -20,7 +25,7 @@ const DEFAULT_RATING = -1;
 
 type FormCommentProps = {
   offerId: string;
-}
+};
 
 function FormComment({ offerId }: FormCommentProps): JSX.Element {
   const dispatch = useAppDispatch();
@@ -58,7 +63,7 @@ function FormComment({ offerId }: FormCommentProps): JSX.Element {
 
   const handleSubmit = (evt: React.FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
-    dispatch(postReviewAction({comment, rating, offerId}));
+    dispatch(postReviewAction({ comment, rating, offerId }));
   };
 
   const handleClickStar = (newRating: number) => {
@@ -72,8 +77,8 @@ function FormComment({ offerId }: FormCommentProps): JSX.Element {
     validateForm(text.length, rating);
   };
 
-  const ratingFormMarkup = (
-    Object.entries(ratingTitlesToValues).map(([title, ratingStar]) => (
+  const ratingFormMarkup = Object.entries(ratingTitlesToValues)
+    .map(([title, ratingStar]) => (
       <Fragment key={title}>
         <input
           className="form__rating-input visually-hidden"
@@ -90,35 +95,20 @@ function FormComment({ offerId }: FormCommentProps): JSX.Element {
           className="reviews__rating-label form__rating-label"
           title={title}
         >
-          <svg
-            className="form__star-image"
-            width={37}
-            height={33}
-          >
+          <svg className="form__star-image" width={37} height={33}>
             <use xlinkHref="#icon-star" />
           </svg>
         </label>
       </Fragment>
     ))
-      .reverse()
-  );
+    .reverse();
 
   return (
-    <form
-      className="reviews__form form"
-      action="#"
-      method="post"
-      onSubmit={handleSubmit}
-    >
-      <label
-        className="reviews__label form__label"
-        htmlFor="review"
-      >
+    <form className="reviews__form form" action="#" method="post" onSubmit={handleSubmit}>
+      <label className="reviews__label form__label" htmlFor="review">
         Your review
       </label>
-      <div className="reviews__rating-form form__rating">
-        {ratingFormMarkup}
-      </div>
+      <div className="reviews__rating-form form__rating">{ratingFormMarkup}</div>
       <textarea
         className="reviews__textarea form__textarea"
         id="review"
@@ -131,10 +121,12 @@ function FormComment({ offerId }: FormCommentProps): JSX.Element {
       />
       <div className="reviews__button-wrapper">
         <p className="reviews__help">
-          To submit review please make sure to set{' '}
-          <span className="reviews__star">rating</span> and describe
-          your stay with at least{' '}
-          <b className="reviews__text-amount">{`${MIN_LENGTH_COMMENT} character${getPluralSuffix(MIN_LENGTH_COMMENT)}`}</b>.
+          To submit review please make sure to set <span className="reviews__star">rating</span> and
+          describe your stay with at least{' '}
+          <b className="reviews__text-amount">{`${MIN_LENGTH_COMMENT} character${getPluralSuffix(
+            MIN_LENGTH_COMMENT,
+          )}`}</b>
+          .
         </p>
         <button
           className="reviews__submit form__submit button"

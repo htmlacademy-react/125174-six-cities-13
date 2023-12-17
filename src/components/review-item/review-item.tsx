@@ -1,9 +1,9 @@
-import { calculateRatingPercentage } from '../../utils.ts';
-import { Review } from '../../types.ts';
+import { calculateRatingPercentage } from '@/utils';
+import { Review } from '@/types';
 
 const dateTimeFormatInstance = new Intl.DateTimeFormat('en-US', {
   month: 'long',
-  year: 'numeric'
+  year: 'numeric',
 });
 
 type ReviewItemProps = {
@@ -35,13 +35,8 @@ function ReviewItem({ review }: ReviewItemProps): JSX.Element {
             <span className="visually-hidden">Rating</span>
           </div>
         </div>
-        <p className="reviews__text">
-          {comment}
-        </p>
-        <time
-          className="reviews__time"
-          dateTime={date}
-        >
+        <p className="reviews__text">{comment}</p>
+        <time className="reviews__time" dateTime={date}>
           {dateFormat}
         </time>
       </div>

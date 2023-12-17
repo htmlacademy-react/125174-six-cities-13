@@ -1,17 +1,17 @@
 import { Link } from 'react-router-dom';
-import { convertCapitalizeFirstLetter, calculateRatingPercentage } from '../../utils.ts';
+import { convertCapitalizeFirstLetter, calculateRatingPercentage } from '@/utils';
 import { CardType } from '../place-list/place-list.tsx';
-import { OfferPreview } from '../../types.ts';
+import { OfferPreview } from '@/types';
 import FavoriteToggleButton from '../favorite-toggle-button/favorite-toggle-button.tsx';
 
 type PlaceCardProps = OfferPreview & {
   cardType: CardType;
-  handleCardMouseEnter?: (id: OfferPreview['id']) => void;
+  handleCardMouseEnter?: (id: OfferPreview['id']) => void | undefined;
   handleCardMouseLeave?: () => void;
 };
 
 function CommonPlaceCard(props: PlaceCardProps): JSX.Element {
-  const { id, cardType, handleCardMouseEnter, handleCardMouseLeave , isFavorite, ...rest } = props;
+  const { id, cardType, handleCardMouseEnter, handleCardMouseLeave, isFavorite, ...rest } = props;
   const pathCard = `/offer/${id}`;
   const ratingPercentage = calculateRatingPercentage(rest.rating);
   const capitalizedType = convertCapitalizeFirstLetter(rest.type);

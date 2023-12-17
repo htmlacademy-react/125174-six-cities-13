@@ -1,10 +1,10 @@
-import { OfferFull } from '../../types.ts';
+import { OfferFull } from '@/types';
 
 const MAX_IMAGES = 6;
 
 type OfferGalleryProps = {
   images: OfferFull['images'];
-}
+};
 
 function OfferGallery({ images }: OfferGalleryProps) {
   return (

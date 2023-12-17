@@ -1,4 +1,4 @@
-import { CityName, NameSpace, SortingType } from '../../../const.ts';
+import { CityName, NameSpace, SortingType } from '@/const';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 const DEFAULT_SELECTED_CITY = CityName.Paris;
@@ -7,7 +7,7 @@ const DEFAULT_SELECTED_SORTING = SortingType.Popular;
 type AppProcess = {
   selectedCity: CityName;
   selectedSortType: SortingType;
-}
+};
 
 const initialState: AppProcess = {
   selectedCity: DEFAULT_SELECTED_CITY,
@@ -23,7 +23,7 @@ export const appProcess = createSlice({
     },
     changeSortingType: (state, action: PayloadAction<SortingType>) => {
       state.selectedSortType = action.payload;
-    }
+    },
   },
 });
 

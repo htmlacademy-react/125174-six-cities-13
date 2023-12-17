@@ -1,9 +1,14 @@
-import { AppRoute, FavoriteStatus } from '../../const.ts';
-import { changeFavoriteStatusAction } from '../../store/api-actions.ts';
-import { useAppDispatch, useAppSelector } from '../../store/hooks.ts';
 import { useNavigate } from 'react-router-dom';
-import { getAuthCheckedStatus } from '../../store/slices/user-process/selectors.ts';
-import { getIsFavoriteStatusSubmitting } from '../../store/slices/app-data/selectors.ts';
+
+import { AppRoute, FavoriteStatus } from '@/const';
+
+import {
+  getIsFavoriteStatusSubmitting,
+  changeFavoriteStatusAction,
+  getAuthCheckedStatus,
+  useAppDispatch,
+  useAppSelector,
+} from '@/store';
 
 type BookmarkButtonProps = {
   isFavorite: boolean;
@@ -14,19 +19,11 @@ type BookmarkButtonProps = {
   buttonClass: string;
   activeClass: string;
   iconClass: string;
-}
+};
 
 function FavoriteToggleButton(props: BookmarkButtonProps) {
-  const {
-    isFavorite,
-    id,
-    buttonText,
-    iconHeight,
-    iconWidth,
-    buttonClass,
-    activeClass,
-    iconClass
-  } = props;
+  const { isFavorite, id, buttonText, iconHeight, iconWidth, buttonClass, activeClass, iconClass } =
+    props;
 
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
@@ -40,12 +37,12 @@ function FavoriteToggleButton(props: BookmarkButtonProps) {
       return;
     }
 
-    dispatch(changeFavoriteStatusAction(
-      {
+    dispatch(
+      changeFavoriteStatusAction({
         offerId: id,
-        status: isFavorite ? FavoriteStatus.Remove : FavoriteStatus.Add
-      }
-    ));
+        status: isFavorite ? FavoriteStatus.Remove : FavoriteStatus.Add,
+      }),
+    );
   };
 
   return (

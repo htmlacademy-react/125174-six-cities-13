@@ -1,20 +1,48 @@
-import {configureStore} from '@reduxjs/toolkit';
-import {createAPI} from '../services/api.ts';
-import { redirect } from './middlewares/redirect.ts';
-import { rootReducer } from './root-reducer.ts';
+export { store } from './store';
 
-export type State = ReturnType<typeof store.getState>;
+export { useAppSelector, useAppDispatch } from './hooks';
 
-export type AppDispatch = typeof store.dispatch;
+export { getIsOfferLoading, getOffer } from './slices/single-offer-data/selectors';
 
-export const api = createAPI();
+export {
+  getIsReviewsLoading,
+  getReviews,
+  getHasError,
+  getIsReviewsStatusSubmitting,
+  getReviewsHasError,
+} from './slices/reviews-data/selectors';
 
-export const store = configureStore({
-  reducer: rootReducer,
-  middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware({
-      thunk: {
-        extraArgument: api,
-      },
-    }).concat(redirect)
-});
+export { setReviewsErrorStatus } from './slices/reviews-data/reviews-data';
+
+export { getIsNearbyLoading, getNearby } from './slices/nearby-data/selectors';
+
+export { getOffers, getIsOffersLoading } from './slices/multiple-offers-data/selectors';
+
+export {
+  getAuthCheckedStatus,
+  getAuthorizationStatus,
+  getIsSubmittingLogin,
+  getUserInfo,
+} from './slices/user-process/selectors';
+
+export { favoritesData, updateMultipleFavorites } from './slices/favorites-data/favorites-data';
+
+export {
+  getIsFavoritesLoading,
+  getFavoriteCount,
+  getFavorites,
+  getIsFavoriteStatusSubmitting,
+} from './slices/favorites-data/selectors';
+
+export {
+  fetchFavoritesAction,
+  changeFavoriteStatusAction,
+} from './slices/favorites-data/api-actions';
+
+export { changeSortingType, changeCity, appProcess } from './slices/app-process/app-process';
+
+export { fetchOffersAction } from './slices/multiple-offers-data/api-actions';
+
+export { getSelectedCity, getSelectedSortType } from './slices/app-process/selectors';
+
+export { checkAuthAction, loginAction, logoutAction } from './slices/user-process/api-actions';
